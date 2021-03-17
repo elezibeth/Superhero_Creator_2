@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Superhero_Creator.Models;
+using Superhero_Creator.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,14 @@ namespace Superhero_Creator.Controllers
 {
     public class SuperheroTest : Controller
     {
+        //start of setup access to database
+        private ApplicationDbContext _context;//why not make new one? because the application automatically serves into parameter
+
+        public SuperheroTest(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+        //end of setup of access to database in any controller
         // GET: SuperheroTest
         public ActionResult Index()
         {
@@ -22,24 +32,20 @@ namespace Superhero_Creator.Controllers
         }
 
         // GET: SuperheroTest/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
         // POST: SuperheroTest/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+       
+        public IActionResult Create(Superhero superhero)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _context.Superheroes.Add(superhero);
+            _context.SaveChanges();
+            return RedirectToAction("index");
+         
         }
 
         // GET: SuperheroTest/Edit/5
@@ -67,6 +73,8 @@ namespace Superhero_Creator.Controllers
         public ActionResult Delete(int id)
         {
             return View();
+
+           
         }
 
         // POST: SuperheroTest/Delete/5
