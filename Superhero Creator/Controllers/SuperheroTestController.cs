@@ -20,9 +20,10 @@ namespace Superhero_Creator.Controllers
         }
         //end of setup of access to database in any controller
         // GET: SuperheroTest
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            return View();
+            var superheroes = _context.Superheroes;
+            return View(superheroes);
         }
 
         // GET: SuperheroTest/Details/5
@@ -30,6 +31,7 @@ namespace Superhero_Creator.Controllers
         {
             return View();
         }
+       
 
         // GET: SuperheroTest/Create
         public IActionResult Create()
@@ -44,7 +46,7 @@ namespace Superhero_Creator.Controllers
         {
             _context.Superheroes.Add(superhero);
             _context.SaveChanges();
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
          
         }
 
