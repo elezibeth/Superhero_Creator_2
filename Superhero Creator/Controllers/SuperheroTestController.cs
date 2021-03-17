@@ -52,26 +52,28 @@ namespace Superhero_Creator.Controllers
         }
 
         // GET: SuperheroTest/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
-
-            return View();
+            var edit = _context.Superheroes.Where(e => e.Id == id).Select(e => e).FirstOrDefault();
+            return View(edit);
         }
 
         // POST: SuperheroTest/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var superheroToBeChanged = _context.Superheroes.Where(s => s.Id == id).Select(s => s).FirstOrDefault();
+            superheroToBeChanged.Name = collection["Name"];
+            superheroToBeChanged.AlterEgoName = collection["AlterEgoName"];
+            superheroToBeChanged.PrimarySuperheroAbility = collection["PrimarySuperheroAbility"];
+            superheroToBeChanged.SecondarySuperheroAbility = collection["SecondarySuperheroAbility"];
+            superheroToBeChanged.Catchphrase = collection["Catchphrase"];
+
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+            
         }
+
 
         // GET: SuperheroTest/Delete/5
         public ActionResult Delete(int id)
