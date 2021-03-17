@@ -27,9 +27,10 @@ namespace Superhero_Creator.Controllers
         }
 
         // GET: SuperheroTest/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
-            return View();
+            var superheroDetails = _context.Superheroes.Where(d => d.Id == id).Select(d => d).FirstOrDefault();
+            return View(superheroDetails);
         }
        
 
@@ -53,6 +54,7 @@ namespace Superhero_Creator.Controllers
         // GET: SuperheroTest/Edit/5
         public ActionResult Edit(int id)
         {
+
             return View();
         }
 
