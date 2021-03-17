@@ -9,29 +9,29 @@ using System.Threading.Tasks;
 
 namespace Superhero_Creator.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller// forget about the controller part,, just home
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
+          
         }
 
-        public IActionResult Index()
+        public IActionResult Index()//
         {
-            return View();
+            return View();//this is under views, home, index
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            return View();// this is under views, home, privacy
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
     }
 }
