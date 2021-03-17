@@ -50,6 +50,11 @@ namespace Superhero_Creator.Controllers
             return RedirectToAction("Index");
          
         }
+        public IActionResult Delete(int id)
+        {
+            var del = _context.Superheroes.Where(d => d.Id == id).Select(d => d).FirstOrDefault();
+            return View(del);
+        }
 
         // GET: SuperheroTest/Edit/5
         public IActionResult Edit(int id)
@@ -76,26 +81,17 @@ namespace Superhero_Creator.Controllers
 
 
         // GET: SuperheroTest/Delete/5
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public IActionResult Delete(Superhero superhero)
         {
-            return View();
+           
+            _context.Superheroes.Remove(superhero);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
 
            
         }
 
-        // POST: SuperheroTest/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+      
     }
 }
